@@ -1,0 +1,350 @@
+/* ================= IMPORT FONTS ================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@500;700&display=swap');
+
+/* ================= ROOT VARIABLES ================= */
+:root {
+  --primary: #f5c542;
+
+  --bg: #ffffff;
+  --text: #111111;
+  --input-bg: rgba(255,255,255,0.6);
+  --border: rgba(0,0,0,0.1);
+
+  --glass: rgba(255, 255, 255, 0.15);
+  --blur: blur(14px);
+}
+
+/* ================= THEMES ================= */
+.light {
+  --bg: #ffffff;
+  --text: #111111;
+  --input-bg: rgba(255,255,255,0.6);
+  --border: rgba(0,0,0,0.1);
+  --glass: rgba(255, 255, 255, 0.2);
+}
+
+.dark {
+  --bg: #0b0b0b;
+  --text: #ffffff;
+  --input-bg: rgba(30,30,30,0.6);
+  --border: rgba(255,255,255,0.15);
+  --glass: rgba(255,255,255,0.05);
+}
+
+/* ================= GLOBAL ================= */
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.4s ease, color 0.4s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ================= CONTAINER ================= */
+.auth-container {
+  display: flex;
+  height: 100vh;
+  position: relative;
+}
+
+/* ================= LEFT PANEL ================= */
+.auth-left {
+  width: 50%;
+  background: linear-gradient(135deg, var(--primary), #f5c542);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 40px;
+  text-align: center;
+  color: #000;
+
+  transition: 0.4s ease;
+}
+
+/* ================= BRAND LEFT ================= */
+/* .light .brand-title-left,
+.light .brand-tagline-left {
+  color: #ffffff;
+} */
+
+.brand-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeUp 1s ease;
+}
+
+.chat-logo {
+  font-size: 80px;
+  margin-bottom: 15px;
+  transition: 0.3s;
+}
+
+.chat-logo:hover {
+  transform: scale(1.1);
+  text-shadow: 0 0 25px rgba(0,0,0,0.2);
+}
+
+.brand-title-left {
+  font-family: 'Inter', sans-serif;
+  font-size: 60px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.brand-tagline-left {
+  margin-top: 12px;
+  font-size: 23px;
+  font-style: italic;
+  opacity: 0.85;
+}
+
+/* ================= RIGHT PANEL ================= */
+.auth-right {
+  width: 50%;
+  padding: 60px;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background: var(--glass);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+
+  border-left: 1px solid var(--border);
+
+  color: var(--text);
+
+  animation: fadeIn 0.8s ease;
+}
+
+/* ================= THEME BUTTON ================= */
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+  border: 1px solid var(--border);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+  color: var(--text);
+  cursor: pointer;
+
+  background: var(--glass);
+  backdrop-filter: var(--blur);
+
+  transition: all 0.25s ease;
+  z-index: 100;
+}
+
+.theme-toggle:hover {
+  background: var(--primary);
+  color: #000;
+  box-shadow: 0 0 20px var(--primary);
+  transform: scale(1.1);
+}
+
+/* ================= TABS ================= */
+.tabs {
+  position: absolute;
+  top: 135px;
+  display: flex;
+  gap: 100px;
+}
+
+.tabs span {
+  cursor: pointer;
+  opacity: 0.6;
+  font-size: 22px;
+  color: var(--text);
+  transition: 0.25s ease;
+}
+
+.tabs span:hover {
+  opacity: 1;
+}
+
+.tabs .active {
+  opacity: 1;
+  border-bottom: 3px solid var(--primary);
+}
+
+/* ================= FORM ================= */
+.form {
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+}
+
+.form-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 32px;
+  margin-bottom: 25px;
+}
+
+/* ================= INPUTS ================= */
+input {
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+
+  border-radius: 10px;
+  border: 1px solid var(--border);
+
+  outline: none;
+  background: var(--input-bg);
+  backdrop-filter: var(--blur);
+
+  color: var(--text);
+  font-size: 16px;
+
+  transition: all 0.25s ease;
+}
+
+input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 12px rgba(212,160,23,0.5);
+}
+
+/* ================= PASSWORD ================= */
+.password-box {
+  position: relative;
+}
+
+.password-box input {
+  width: 100%;
+  padding-right: 45px;
+}
+
+.password-box span {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--text);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.google-btn {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 15px;
+
+  border: 1px solid var(--border);
+  background: #f5c542;
+
+  cursor: pointer;
+  border-radius: 10px;
+
+  color: #000;
+  font-size: 16px;
+  font-weight: 600;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* tight spacing */
+
+  transition: all 0.25s ease;
+}
+
+.google-btn:hover {
+  box-shadow: 0 0 15px rgba(212,160,23,0.4);
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+/* INLINE GOOGLE LOGO */
+.google-inline-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+
+  background: var(--primary);
+  border: none;
+  margin-top: 15px;
+
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 10px;
+
+  font-size: 16px;
+  transition: all 0.25s ease;
+}
+
+.submit-btn:hover {
+  box-shadow: 0 0 20px var(--primary);
+  transform: translateY(-2px);
+}
+
+/* ================= ERROR ================= */
+.error-text {
+  color: #ff4d4f;
+  font-size: 13px;
+  margin-top: 5px;
+  text-align: left;
+}
+
+.input-error {
+  border: 1px solid red !important;
+}
+
+/* ================= EXTRA ================= */
+.extra {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+/* ================= DIVIDER ================= */
+.divider {
+  text-align: center;
+  margin: 15px 0;
+  opacity: 0.6;
+  font-size: 21px;
+}
+
+/* ================= ANIMATIONS ================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

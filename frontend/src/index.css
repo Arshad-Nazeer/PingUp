@@ -1,0 +1,64 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* LOCK SCALING */
+html {
+  font-size: 16px; /* FIXED BASE SIZE */
+}
+
+/* GLOBAL */
+body {
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+
+  font-family: "DM Sans", sans-serif;
+
+  -webkit-text-size-adjust: 100%;
+}
+
+/* THEME VARIABLES */
+:root {
+  --bg: #0a0a0a;
+  --card: #111;
+  --text: #eaeaea;
+  --border: #222;
+  --accent: #d4a017;
+  --dropdown: #1a1a1a;
+  --toggle-bg: #444;
+}
+
+/* LIGHT */
+body.light {
+  --bg: #ffffff;
+  --card: #f5f5f5;
+  --text: #111;
+  --border: #ccc;
+  --dropdown: #ffffff;
+  --toggle-bg: #ddd;
+}
+
+/* DARK */
+body.dark {
+  --bg: #0a0a0a;
+}
+
+/* APPLY */
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: all 0.3s ease;
+}
+
+/* FIX DROPDOWN */
+select {
+  background: var(--dropdown);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 0.4rem;
+  border-radius: 0.4rem;
+}
