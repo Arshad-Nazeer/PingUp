@@ -1,4 +1,4 @@
-/* ================= IMPORT FONTS ================= */
+/* ================= IMPORT FONTS =================
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
 /* ================= GLOBAL ================= */
@@ -293,50 +293,92 @@ body {
 }
 
 /* ================= INPUT ================= */
+/* MESSAGE INPUT */
+/* MESSAGE INPUT */
 .message-input {
   display: flex;
   align-items: center;
   gap: 10px;
-
-  padding: 12px;
-
-  background: var(--glass);
-  backdrop-filter: var(--blur);
-
+  padding: 10px;
   border-top: 1px solid var(--border);
+  background: var(--card);
+  position: relative;
 }
 
+/* ICON BUTTONS */
+.icon-btn {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* INPUT */
 .message-input input {
   flex: 1;
-  min-width: 0;
-
-  padding: 10px;
-  border-radius: 8px;
-
-  border: 1px solid var(--border);
-  background: var(--input-bg);
-
-  color: var(--text);
-}
-
-.message-input input:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 8px rgba(245,197,66,0.4);
-}
-
-.message-input button {
-  background: var(--primary);
+  padding: 8px 10px;
   border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 14px;
+}
 
-  padding: 10px;
-  border-radius: 8px;
-
+/* SEND BUTTON */
+.message-input button {
+  background: var(--accent);
+  border: none;
+  padding: 8px 12px;
   cursor: pointer;
+  border-radius: 6px;
+  color: black;
+  font-weight: bold;
 }
 
-.message-input button:hover {
-  box-shadow: 0 0 15px var(--primary);
+/* EMOJI PICKER */
+.emoji-picker {
+  position: absolute;
+  bottom: 55px;
+  left: 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 220px;
+  z-index: 100;
 }
+
+.emoji-picker span {
+  cursor: pointer;
+  font-size: 20px;
+  transition: transform 0.1s;
+}
+
+.emoji-picker span:hover {
+  transform: scale(1.2);
+}
+
+/* FILE PREVIEW */
+.file-preview {
+  position: absolute;
+  bottom: 60px;
+  right: 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.file-preview span {
+  cursor: pointer;
+  color: red;
+}
+  
 
 /* ================= MODAL ================= */
 .modal-overlay {
@@ -421,4 +463,4 @@ body {
 
 .group-item:hover {
   background: var(--glass);
-}
+} 

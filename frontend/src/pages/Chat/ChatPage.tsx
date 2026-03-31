@@ -106,6 +106,162 @@
 // }
 
 // export default ChatPage
+// import "../../styles/Chat/Chat.css"
+// import Sidebar from "../../components/Chat/Sidebar"
+// import ChatWindow from "../../components/Chat/ChatWindow"
+// import AddContactModal from "../../components/Chat/AddContactModal"
+// import CreateGroupModal from "../../components/Chat/CreateGroupModal"
+
+// import { useState, useEffect } from "react"
+
+// const ChatPage = () => {
+//   /* ================= LOAD FROM STORAGE ================= */
+
+//   const [contacts, setContacts] = useState<any[]>(() => {
+//     return JSON.parse(localStorage.getItem("contacts") || "[]")
+//   })
+
+//   const [messages, setMessages] = useState<any>(() => {
+//     return JSON.parse(localStorage.getItem("messages") || "{}")
+//   })
+
+//   const [selectedChat, setSelectedChat] = useState<any>(() => {
+//     return JSON.parse(localStorage.getItem("selectedChat") || "null")
+//   })
+
+//   const [search, setSearch] = useState("")
+//   const [showModal, setShowModal] = useState(false)
+//   const [showGroupModal, setShowGroupModal] = useState(false)
+
+//   /* ================= SAVE TO STORAGE ================= */
+
+//   useEffect(() => {
+//     localStorage.setItem("contacts", JSON.stringify(contacts))
+//   }, [contacts])
+
+//   useEffect(() => {
+//     localStorage.setItem("messages", JSON.stringify(messages))
+//   }, [messages])
+
+//   useEffect(() => {
+//     localStorage.setItem("selectedChat", JSON.stringify(selectedChat))
+//   }, [selectedChat])
+
+//   /* ================= AUTO SELECT FIRST CHAT ================= */
+
+//   useEffect(() => {
+//     if (!selectedChat && contacts.length > 0) {
+//       setSelectedChat(contacts[0])
+//     }
+//   }, [contacts])
+
+//   /* ================= SEND MESSAGE ================= */
+
+//   const sendMessage = (text: string) => {
+//     if (!selectedChat || !text.trim()) return
+
+//     const newMsg = {
+//       text,
+//       time: new Date().toLocaleTimeString([], {
+//         hour: "2-digit",
+//         minute: "2-digit",
+//       }),
+//       sender: "me",
+//     }
+
+//     // UPDATE MESSAGES
+//     setMessages((prev: any) => ({
+//       ...prev,
+//       [selectedChat.id]: [...(prev[selectedChat.id] || []), newMsg],
+//     }))
+
+//     // UPDATE CONTACT PREVIEW
+//     setContacts((prev: any[]) =>
+//       prev.map((c) =>
+//         c.id === selectedChat.id
+//           ? {
+//               ...c,
+//               msg: text,
+//               time: newMsg.time,
+//             }
+//           : c
+//       )
+//     )
+//   }
+
+//   /* ================= ADD CONTACT ================= */
+
+//   const addContact = (name: string, email: string) => {
+//     const newContact = {
+//       id: Date.now(),
+//       name,
+//       email,
+//       msg: "Start conversation",
+//       time: "Now",
+//       isGroup: false,
+//     }
+
+//     setContacts((prev) => [...prev, newContact])
+//   }
+
+//   /* ================= CREATE GROUP ================= */
+
+//   const createGroup = (groupName: string, members: any[]) => {
+//     const newGroup = {
+//       id: Date.now(),
+//       name: groupName,
+//       members,
+//       msg: "Group created",
+//       time: "Now",
+//       isGroup: true,
+//     }
+
+//     setContacts((prev) => [...prev, newGroup])
+//   }
+
+//   /* ================= UI ================= */
+
+//   return (
+//     <div className="app-layout">
+//       <Sidebar
+//         contacts={contacts}
+//         selectedChat={selectedChat}
+//         setSelectedChat={setSelectedChat}
+//         search={search}
+//         setSearch={setSearch}
+//         openModal={() => setShowModal(true)}
+//         openGroupModal={() => setShowGroupModal(true)}
+//       />
+
+//       <ChatWindow
+//         selectedChat={selectedChat}
+//         messages={messages[selectedChat?.id] || []}
+//         sendMessage={sendMessage}
+//       />
+
+//       {/* ADD CONTACT MODAL */}
+//       {showModal && (
+//         <AddContactModal
+//           close={() => setShowModal(false)}
+//           addContact={addContact}
+//         />
+//       )}
+
+//       {/* CREATE GROUP MODAL */}
+//       {showGroupModal && (
+//         <CreateGroupModal
+//           close={() => setShowGroupModal(false)}
+//           contacts={contacts}
+//           createGroup={createGroup}
+//         />
+//       )}
+//     </div>
+//   )
+// }
+
+// export default ChatPage
+
+
 import "../../styles/Chat/Chat.css"
 import Sidebar from "../../components/Chat/Sidebar"
 import ChatWindow from "../../components/Chat/ChatWindow"
@@ -155,13 +311,14 @@ const ChatPage = () => {
     }
   }, [contacts])
 
-  /* ================= SEND MESSAGE ================= */
+  /* ================= SEND MESSAGE (FINAL FIX) ================= */
 
-  const sendMessage = (text: string) => {
-    if (!selectedChat || !text.trim()) return
+  const sendMessage = (text: string, file: File | null) => {
+    if (!selectedChat || (!text.trim() && !file)) return
 
     const newMsg = {
       text,
+      file, // ✅ added file support
       time: new Date().toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
@@ -169,19 +326,19 @@ const ChatPage = () => {
       sender: "me",
     }
 
-    // UPDATE MESSAGES
+    // ✅ UPDATE MESSAGES PER CONTACT
     setMessages((prev: any) => ({
       ...prev,
       [selectedChat.id]: [...(prev[selectedChat.id] || []), newMsg],
     }))
 
-    // UPDATE CONTACT PREVIEW
+    // ✅ UPDATE CONTACT PREVIEW
     setContacts((prev: any[]) =>
       prev.map((c) =>
         c.id === selectedChat.id
           ? {
               ...c,
-              msg: text,
+              msg: file ? "📎 File" : text,
               time: newMsg.time,
             }
           : c
@@ -223,6 +380,8 @@ const ChatPage = () => {
 
   return (
     <div className="app-layout">
+      
+      {/* SIDEBAR */}
       <Sidebar
         contacts={contacts}
         selectedChat={selectedChat}
@@ -233,10 +392,11 @@ const ChatPage = () => {
         openGroupModal={() => setShowGroupModal(true)}
       />
 
+      {/* CHAT WINDOW */}
       <ChatWindow
         selectedChat={selectedChat}
         messages={messages[selectedChat?.id] || []}
-        sendMessage={sendMessage}
+        sendMessage={sendMessage} // ✅ IMPORTANT
       />
 
       {/* ADD CONTACT MODAL */}
@@ -260,3 +420,4 @@ const ChatPage = () => {
 }
 
 export default ChatPage
+

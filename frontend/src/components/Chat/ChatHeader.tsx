@@ -12,9 +12,7 @@ const ChatHeader = ({ contact }: any) => {
       </div>
 
       <div className="chat-actions">
-        <span>📞</span>
-        <span>🎥</span>
-        <span>⋮</span>
+        
       </div>
     </div>
   )
